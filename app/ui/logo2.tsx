@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImage from '../image/logo.jpg';
+import logoImage from '../image/doc.jpg';
 
 export default function Logo() {
   return (

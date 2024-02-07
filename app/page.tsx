@@ -1,36 +1,35 @@
-import React from 'react';
-
-import Sidebar from '@/components/Sidebar';
-
-import { Suspense } from 'react';
 
 
+import Header from '@/components/Header';
+import UpcomingPatient from '@/components/UpcomingPatient';
+import PatientQueue from '@/components/PatientQueue';
+import PatientStats from '@/components/PatientStats';
+import InviteSection from '@/components/InviteSection';
 import 'tailwindcss/tailwind.css';
 
-export default async function Page() {
-  
-
-  // Supposons que vous ayez une variable `user` qui indique si l'utilisateur est connecté
-  const user = true; // Mettez la logique de connexion ici
-
+const Page = () => {
   return (
-    <main className="flex flex-col h-screen bg-blue-200">
-      <div className=" h-screen">
-        <div className="col-span-1 bg-blue-200">
-          <Sidebar />
-        </div>
-        <div className="col-span-6 p-6">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-  
-  <Suspense fallback={<div>Loading...</div>}>
-    <div className="col-span-full">
-      
-    </div>
-  </Suspense>
+    <div className="flex h-screen bg-gray-100">
+      <div className="flex-1 overflow-auto">
+        <Header />
+        <main className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <UpcomingPatient />
+            <div className="grid md:grid-cols-2 gap-4">
+  <div className="md:col-span-1">
+    <PatientQueue />
+  </div>
+  <div className="md:col-span-1">
+    <PatientStats />
+  </div>
 </div>
-        </div>
-      
+
+          </div>
+          <InviteSection />
+        </main>
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default Page;
