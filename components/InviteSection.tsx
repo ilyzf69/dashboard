@@ -8,7 +8,7 @@ const InviteSection = () => {
 
     
   return (
-    <div className="mt-10 p-10 bg-white rounded-3xl shadow flex items-center justify-center ml-4">
+    <div className="mt-10 p-10 bg-white rounded-3xl flex items-center justify-center ml-4">
   <Logo />
   <div className="mr-4">
     

@@ -8,22 +8,26 @@ import 'tailwindcss/tailwind.css';
 
 const Page = () => {
   return (
-    // Fond bleu clair pour toute la page
-    <div className="flex h-screen bg-blue-100">
-      {/* Conteneur central avec une ombre et un fond blanc */}
-      <div className="flex-1 overflow-auto my-8 mx-auto shadow-lg bg-white rounded-lg max-w-6xl">
+    <div className="flex h-screen" style={{ backgroundColor: '#a0eceb' }}>
+      <div className="flex-1 overflow-auto my-8 mx-auto shadow-lg bg-white max-w-6xl rounded-3xl">
         <Header />
         <main className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <UpcomingPatient />
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="md:col-span-1">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 rounded-3xl" style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}>
+            {/* Partie gauche */}
+            <div className="md:col-span-2">
+              <UpcomingPatient />
+            </div>
+            {/* Partie droite */}
+            <div className="md:col-span-2 md:grid md:grid-cols-2 gap-4">
+              <div>
                 <PatientQueue />
               </div>
-              <div className="md:col-span-1">
+              <div>
                 <PatientStats />
               </div>
-              <Detail />
+              <div className="md:col-span-2 justify-center">
+                <Detail />
+              </div>
             </div>
           </div>
           <InviteSection />
