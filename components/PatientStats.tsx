@@ -1,43 +1,64 @@
-const PatientStats = () => {
-    // Données pour le graphique, pour chaque type de patient
-    const data = {
-      New: 5,
-      Sick: 2,
-      Existing: 8
-    };
-  
-    // Trouvez la valeur maximale pour la mise à l'échelle du graphique
-    const maxValue = Math.max(...Object.values(data));
-  
-    return (
-      <div className="bg-white rounded shadow p-4">
-        <h2 className="text-lg font-semibold mb-4">Patients Type</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          {Object.entries(data).map(([type, value]) => (
-            <div key={type} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ width: '50px' }}>{type}</span>
-              <div style={{ background: 'lightgrey', width: '100%', height: '24px', borderRadius: '4px' }}>
-                <div 
-                  style={{ 
-                    background: type === 'New' ? 'blue' : type === 'Sick' ? 'orange' : 'green',
-                    width: `${(value / maxValue) * 100}%`, 
-                    height: '24px', 
-                    borderRadius: '4px',
-                  }} 
-                />
-              </div>
-              <span>{value}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '8px' }}>
-          <span>Jan</span>
-          <span>Feb</span>
-          <span>Mar</span>
-        </div>
+import {
+  ClockIcon,
+  UserGroupIcon,
+  InboxIcon,
+} from '@heroicons/react/outline';
+import { fetchCardData } from '@/app/lib/data';
+import { lusitana } from '@/app/ui/font';
+
+
+const iconMap = {
+  customers: UserGroupIcon,
+  pending: ClockIcon,
+  invoices: InboxIcon,
+};
+
+export default async function CardWrapper() {
+  const {
+    numberOfInvoices,
+    numberOfCustomers,
+    totalPaidInvoices,
+    totalPendingInvoices,
+  } = await fetchCardData();
+  return (
+    <>
+      {/* NOTE: comment in this code when you get to this point in the course */}
+
+     <Card title="Collected" value={totalPaidInvoices} type="collected" />
+      <Card title="Pending" value={totalPendingInvoices} type="pending" />
+      <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
+      <Card
+        title="Total Customers"
+        value={numberOfCustomers}
+        type="customers"
+      /> 
+    </>
+  );
+}
+
+export function Card({
+  title,
+  value,
+  type,
+}: {
+  title: string;
+  value: number | string;
+  type: 'invoices' | 'customers' | 'pending' | 'collected';
+}) {
+  const Icon = iconMap[type];
+
+  return (
+    <div className="rounded-xl bg-gray-50 p-2 shadow-sm">
+      <div className="flex p-4">
+        {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
+        <h3 className="ml-2 text-sm font-medium">{title}</h3>
       </div>
-    );
-  };
-  
-  export default PatientStats;
-  
+      <p
+        className={`${lusitana.className}
+          truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
+      >
+        {value}
+      </p>
+    </div>
+  );
+}
